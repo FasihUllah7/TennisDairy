@@ -125,11 +125,10 @@ if user_input:
     if session["title"] == "💬 New Chat":
         new_name = generate_chat_name(user_input)
         st.session_state.sessions[new_name] = session
-        del st.session_state.sessions["New Chat"]
+        st.session_state.sessions.pop("New Chat", None)  # ✅ Safe deletion (prevents KeyError)
         st.session_state.current_chat = new_name
         st.rerun()
 
 # --- Sidebar Footer ---
 st.sidebar.divider()
 st.sidebar.info(f"Current Chat: {st.session_state.current_chat}")
-
